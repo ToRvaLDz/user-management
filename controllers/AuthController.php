@@ -29,7 +29,7 @@ class AuthController extends BaseController
 	public function actions()
 	{
 		return [
-			/*'captcha' => $this->module->captchaOptions,*/
+			'captcha' => $this->module->captchaOptions,
 		];
 	}
 
