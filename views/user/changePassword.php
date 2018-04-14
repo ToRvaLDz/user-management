@@ -8,21 +8,30 @@ use yii\helpers\Html;
  * @var yii\web\View $this
  * @var webvimark\modules\UserManagement\models\User $model
  */
+$icon="flaticon-user";
+$subtitle='';
 
-$this->title = UserManagementModule::t('back', 'Changing password for user: ') . ' ' . $model->username;
+$title = UserManagementModule::t('back', 'Changing password for user: ') . ' ' . $model->username;
 $this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = UserManagementModule::t('back', 'Changing password');
 ?>
-<div class="user-update">
 
-	<h2 class="lte-hide-title"><?= $this->title ?></h2>
-
-	<div class="panel panel-default">
-		<div class="panel-body">
-
-			<div class="user-form">
-
+<div class="user-changepassword">
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                        <i class="<?= $icon ?>"></i> <?= Html::encode($title) ?>
+                        <small>
+							<?= Html::encode($subtitle) ?>
+                        </small>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="m-portlet__body">
 				<?php $form = ActiveForm::begin([
 					'id'=>'user',
 					'layout'=>'horizontal',
@@ -50,7 +59,6 @@ $this->params['breadcrumbs'][] = UserManagementModule::t('back', 'Changing passw
 				</div>
 
 				<?php ActiveForm::end(); ?>
-
 			</div>
 		</div>
 	</div>
