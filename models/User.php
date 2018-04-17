@@ -28,6 +28,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $superadmin
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $id_company
  */
 class User extends UserIdentity
 {
@@ -268,6 +269,8 @@ class User extends UserIdentity
 
 			['repeat_password', 'required', 'on'=>['newUser', 'changePassword']],
 			['repeat_password', 'compare', 'compareAttribute'=>'password'],
+
+			['id_company','string','max'=>10]
 		];
 	}
 
@@ -329,6 +332,7 @@ class User extends UserIdentity
 			'repeat_password'    => UserManagementModule::t('back', 'Repeat password'),
 			'email_confirmed'    => UserManagementModule::t('back', 'E-mail confirmed'),
 			'email'              => UserManagementModule::t('back', 'E-mail'),
+			'id_company'              => UserManagementModule::t('back', 'ID Company'),
 		];
 	}
 

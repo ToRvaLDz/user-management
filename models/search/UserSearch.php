@@ -16,7 +16,7 @@ class UserSearch extends User
 	{
 		return [
 			[['id', 'superadmin', 'status', 'created_at', 'updated_at', 'email_confirmed'], 'integer'],
-			[['username', 'gridRoleSearch', 'registration_ip', 'email'], 'string'],
+			[['username', 'gridRoleSearch', 'registration_ip', 'email','id_company'], 'string'],
 		];
 	}
 
@@ -67,6 +67,7 @@ class UserSearch extends User
 			'created_at' => $this->created_at,
 			'updated_at' => $this->updated_at,
 			'email_confirmed' => $this->email_confirmed,
+			'id_company' => $this->id_company,
 		]);
 
         	$query->andFilterWhere(['like', 'username', $this->username])
