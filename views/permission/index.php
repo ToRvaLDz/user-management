@@ -86,17 +86,6 @@ use yii\helpers\Html;
 			'pjax'=>true,
 			'dataProvider' => $dataProvider,
 			'filterModel' => $searchModel,
-            'responsive' => true,
-            'perfectScrollbar' => false,
-            'condensed' => false,
-            'floatHeader' => false,
-            'bordered' => true,
-            'striped'=>true,
-            'hover' => true,
-            'persistResize'=>false,
-            'tableOptions' => ['class'=>'m-datatable__table'],
-            'headerRowOptions' => ['class'=>'m-datatable__row'],
-            'rowOptions' => ['class'=>'m-datatable__row'],
             'columns' => [
 				['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
 
@@ -158,50 +147,59 @@ use yii\helpers\Html;
 					]
                 ]
 			],
-			    'panel' => [
-				    'heading' => '',
-				    'type' => 'info',
-				    'before' =>' <a href="/' . Yii::$app->request->getPathInfo() .'" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
-                            <span>
-                                <i class="la la-times-circle-o"></i>
-                                <span>
-                                    Rimuovi filtri
-                                </span>
-                            </span>
-                        </a>',
-				    'after' => ' <a href="/' . Yii::$app->request->getPathInfo() .'" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
-                            <span>
-                                <i class="la la-times-circle-o"></i>
-                                <span>
-                                    Rimuovi filtri
-                                </span>
-                            </span>
-                        </a>',
-				    'showFooter' => false
-			    ],
+            'condensed' => false,
+            'floatHeader' => false,
+            'bordered' => true,
+            'striped'=>true,
+            'hover' => true,
+            'persistResize'=>false,
+            'tableOptions' => ['class'=>'m-datatable__table'],
+            'headerRowOptions' => ['class'=>'m-datatable__row'],
+            'rowOptions' => ['class'=>'m-datatable__row'],
+            'panel' => [
+                'heading' => '',
+                'type' => 'info',
+                'before' =>' <a href="/' . Yii::$app->request->getPathInfo() .'" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                    <span>
+                        <i class="la la-times-circle-o"></i>
+                        <span>
+                            Rimuovi filtri
+                        </span>
+                    </span>
+                </a>',
+                'after' => ' <a href="/' . Yii::$app->request->getPathInfo() .'" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                    <span>
+                        <i class="la la-times-circle-o"></i>
+                        <span>
+                            Rimuovi filtri
+                        </span>
+                    </span>
+                </a>',
+                'showFooter' => false
+            ],
             'panelTemplate'=>'<div class="panel {type}">
-                    {panelBefore}
-                    {panelHeading}
-                    {items}
-                    {panelFooter}
-                    {panelAfter}
-                </div>',
+                {panelBefore}
+                {panelHeading}
+                {items}
+                {panelFooter}
+                {panelAfter}
+            </div>',
             'toolbar'=>[],
             'panelHeadingTemplate' => '
-                        {heading}
-                        {pager}
-                    <div class="m-datatable__pager-info">
-                        {summary}
-                    </div>
-                    <div class="clearfix"></div>',
+                    {heading}
+                    {pager}
+                <div class="m-datatable__pager-info">
+                    {summary}
+                </div>
+                <div class="clearfix"></div>',
             'panelFooterTemplate' => '
-                        {pager}
-                    
-                    <div class="m-datatable__pager-info">
-                        {summary}
-                    </div>
-                    <div class="clearfix"></div>
-                    '
+                    {pager}
+                
+                <div class="m-datatable__pager-info">
+                    {summary}
+                </div>
+                <div class="clearfix"></div>
+                '
 		]); ?>
         </div>
     </div>
