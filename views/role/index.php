@@ -130,42 +130,35 @@ use kartik\grid\GridView;
 				],
 			],
 			'condensed' => false,
+			'perfectScrollbar' => false,
+			'condensed' => false,
 			'floatHeader' => false,
 			'bordered' => true,
 			'striped'=>true,
 			'hover' => true,
 			'persistResize'=>false,
+			'filterSelector' => '#zero',
 			'tableOptions' => ['class'=>'m-datatable__table'],
 			'headerRowOptions' => ['class'=>'m-datatable__row'],
 			'rowOptions' => ['class'=>'m-datatable__row'],
 			'panel' => [
-				'heading' => '',
-				'type' => 'info',
-				'before' =>' <a href="/' . Yii::$app->request->getPathInfo() .'" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
-                    <span>
-                        <i class="la la-times-circle-o"></i>
-                        <span>
-                            Rimuovi filtri
-                        </span>
-                    </span>
-                </a>',
-				'after' => ' <a href="/' . Yii::$app->request->getPathInfo() .'" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
-                    <span>
-                        <i class="la la-times-circle-o"></i>
-                        <span>
-                            Rimuovi filtri
-                        </span>
-                    </span>
-                </a>',
+				'heading' => '<div class="m-form m-form--label-align-right m--margin-bottom-20 ">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 m--align-right">
+                                <a href="/' . Yii::$app->request->getPathInfo() .'" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                    <span>
+                                        <i class="la la-times-circle-o"></i>
+                                        <span>
+                                            Rimuovi filtri
+                                        </span>
+                                    </span>
+                                </a>
+                                <div class="m-separator m-separator--dashed d-xl-none d-md-none"></div>
+                            </div>
+                        </div>
+                    </div>',
 				'showFooter' => false
 			],
-			'panelTemplate'=>'<div class="panel {type}">
-                {panelBefore}
-                {panelHeading}
-                {items}
-                {panelFooter}
-                {panelAfter}
-            </div>',
 			'toolbar'=>[],
 			'panelHeadingTemplate' => '
                     {heading}
@@ -181,6 +174,7 @@ use kartik\grid\GridView;
                     {summary}
                 </div>
                 <div class="clearfix"></div>
+
                 '
 		]); ?>
         </div>
