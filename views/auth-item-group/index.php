@@ -52,6 +52,17 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?= GridView::widget([
 				'id'=>'auth-item-group-grid',
 				'dataProvider' => $dataProvider,
+				'responsive' => true,
+				'perfectScrollbar' => false,
+				'condensed' => false,
+				'floatHeader' => false,
+				'bordered' => true,
+				'striped'=>true,
+				'hover' => true,
+				'persistResize'=>false,
+				'tableOptions' => ['class'=>'m-datatable__table'],
+				'headerRowOptions' => ['class'=>'m-datatable__row'],
+				'rowOptions' => ['class'=>'m-datatable__row'],
 				'pager'=>[
 					'options'=>['class'=>'pagination pagination-sm'],
 					'hideOnSinglePage'=>true,

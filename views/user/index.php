@@ -89,14 +89,18 @@ $this->params['breadcrumbs'][] = (!empty($subtitle) ? $subtitle : $title);
 		        'id'=>'user-grid',
 		        'pjax'=>true,
 		        'dataProvider' => $dataProvider,
-		        /*'pager'=>[
-			        'options'=>['class'=>'pagination pagination-sm'],
-			        'hideOnSinglePage'=>true,
-			        'lastPageLabel'=>'>>',
-			        'firstPageLabel'=>'<<',
-		        ],*/
+		        'responsive' => true,
+		        'perfectScrollbar' => false,
+		        'condensed' => false,
+		        'floatHeader' => false,
+		        'bordered' => true,
+		        'striped'=>true,
+		        'hover' => true,
+		        'persistResize'=>false,
+		        'tableOptions' => ['class'=>'m-datatable__table'],
+		        'headerRowOptions' => ['class'=>'m-datatable__row'],
+		        'rowOptions' => ['class'=>'m-datatable__row'],
 		        'filterModel' => $searchModel,
-		      //  'layout'=>'{items}<div class="row"><div class="col-sm-8">{pager}</div><div class="col-sm-4 text-right">{summary}'.GridBulkActions::widget(['gridId'=>'user-grid']).'</div></div>',
 		        'columns' => [
 			        ['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
 
