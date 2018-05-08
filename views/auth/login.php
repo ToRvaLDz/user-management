@@ -18,7 +18,7 @@ LoginAsset::register($this);
         <div class="m-login__container">
             <div class="m-login__logo">
                 <a href="#">
-                    <img src="/img/login-logo.png">
+                    <img src="<?= yii::$app->params['login_logo'] ?>">
                 </a>
             </div>
             <?= $this->render('login-login-form', ['model' => $model]) ?>
