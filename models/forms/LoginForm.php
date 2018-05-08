@@ -55,7 +55,7 @@ class LoginForm extends Model
 		{
 
 			$user = $this->getUser();
-            if($this->username=='superadmin'){
+			if($this->username=='superadmin' || array_key_exists('ldap',yii::$app->components)){
                 $valido=!$user || !$user->validatePassword($this->password);
             }else{
                 $valido=!$user || !\Yii::$app->ldap->authenticate($this->username,$this->password);
