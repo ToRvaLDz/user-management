@@ -8,22 +8,11 @@
     /* @var $this View */
     /* @var $content string */
 
-
-    $this->registerJs(
-        <<<JS
-WebFont.load({
-            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
-            active: function() {
-                sessionStorage.fonts = true;
-            }
-          });
-
-JS
-        ,$this::POS_HEAD);
-
     $this->title= Yii::$app->id;
     BootstrapAsset::register($this);
 ?>
+
+<!-- Nuovo -->
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -36,22 +25,43 @@ JS
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--    <link rel="shortcut icon" href="/theme/default/assets/demo/default/media/img/logo/favicon.ico" />
     -->    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+
+    <script>
+        WebFont.load({
+            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+    <!--end::Fonts -->
     <?php $this->head() ?>
+
+
+    <!--begin::Page Custom Styles(used by this page) --
+    <link href="./assets/css/demo1/pages/general/login/login-2.css" rel="stylesheet" type="text/css" />
+    !--end::Page Custom Styles --
+
+
+    <link href="./assets/css/demo1/skins/header/base/light.css" rel="stylesheet" type="text/css" />
+    <link href="./assets/css/demo1/skins/header/menu/light.css" rel="stylesheet" type="text/css" />
+    <link href="./assets/css/demo1/skins/brand/dark.css" rel="stylesheet" type="text/css" />
+    <link href="./assets/css/demo1/skins/aside/dark.css" rel="stylesheet" type="text/css" />
+    !--end::Layout Skins -->
+
+   <!-- <link rel="shortcut icon" href="./assets/media/logos/favicon.ico" />-->
 </head>
 <!-- end::Head -->
 <?php echo $this->beginBody() ?>
 <!-- begin::Body -->
-<body class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
+<body  class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading"  >
 <!-- begin:: Page -->
-<div class="m-grid m-grid--hor m-grid--root m-page">
-    <?php echo $content ?>
-</div>
+<?php echo $content ?>
 <!-- end:: Page -->
 <?php $this->endBody(); ?>
 </body>
+<!-- begin::Global Config(global config for global JS sciprts) -->
 <?php $this->endPage() ?>
-<!-- end::Body -->
+<!-- end::Global Config -->
 </html>
-
-
 
