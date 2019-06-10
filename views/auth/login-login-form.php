@@ -43,15 +43,18 @@
         <div class="row kt-login__extra">
             <div class="col">
                 <label class="kt-checkbox">
-                    <?= $form->field($model, 'rememberMe')->checkbox(['label'=>'Ricordami','value'=>true]) ?>
+                    <input type="checkbox" name="LoginForm[rememberMe]">Ricordami
                     <span></span>
                 </label>
             </div>
         </div>
         <div class="kt-login__actions">
-            <?= Html::submitButton(
+            <?= Html::button(
                 UserManagementModule::t('front', 'Login'),
-                ['class' => 'btn btn-pill kt-login__btn-primary']
+                [
+                    'id'=>'kt_login_signin_submit',
+                    'class' => 'btn btn-pill kt-login__btn-primary'
+                ]
             ) ?>
         </div>
     <?php ActiveForm::end() ?>
