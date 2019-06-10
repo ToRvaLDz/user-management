@@ -10,15 +10,19 @@ LoginAsset::register($this);
 ?>
 
 <!-- BEGIN LOGIN FORM -->
-<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-2" id="m_login" style="background-image: url(/theme/default/assets/app/media/img//bg/bg-3.jpg);">
-    <div class="m-grid__item m-grid__item--fluid	m-login__wrapper">
-        <div class="m-login__container">
-            <div class="m-login__logo">
-                <a href="#">
-                    <img src="/img/login-logo.png">
-                </a>
+<div class="kt-grid kt-grid--ver kt-grid--root">
+    <div class="kt-grid kt-grid--hor kt-grid--root kt-login kt-login--v2 kt-login--signin" id="kt_login">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url(./assets/media//bg/bg-1.jpg);">
+            <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
+                <div class="kt-login__container">
+                    <div class="kt-login__logo">
+                        <a href="#">
+                            <img src="./assets/media/logos/logo-mini-2-md.png">
+                        </a>
+                    </div>
+                     <?= $this->render('login-login-form', ['model' => $model]) ?>
+                </div>
             </div>
-            <?= $this->render('login-login-form', ['model' => $model]) ?>
         </div>
     </div>
 </div>
