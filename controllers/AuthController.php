@@ -47,13 +47,7 @@ class AuthController extends BaseController
 
 		$model = new LoginForm();
 
-		if ( Yii::$app->request->isAjax AND $model->load(Yii::$app->request->post()) )
-		{
-			Yii::$app->response->format = Response::FORMAT_JSON;
-			return ActiveForm::validate($model);
-		}
-
-		if ( $model->load(Yii::$app->request->post()) AND $model->login() )
+		if ( Yii::$app->request->isAjax AND $model->load(Yii::$app->request->post()) AND $model->login() )
 		{
 			return $this->goBack();
 		}

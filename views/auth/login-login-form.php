@@ -5,7 +5,7 @@
      */
 
     use webvimark\modules\UserManagement\UserManagementModule;
-    use app\widgets\ActiveForm;
+    use yii\bootstrap4\ActiveForm;
     use yii\bootstrap4\Html;
 
 ?>
@@ -17,15 +17,14 @@
     </div>
     <?php $form = ActiveForm::begin([
         'options'=>['class'=>'kt-form'],
-        'validateOnBlur'=>false,
-        'fieldConfig' => ['options' => ['class' => 'input-group'],'errorOptions'=>['class'=>'form-control-feedback']],
-        'errorCssClass' => 'has-danger',
-
+        'validateOnBlur'=>true,
+        'fieldConfig' => ['options' => ['class' => 'input-group']],
+        'errorCssClass' => 'is-invalid',
     ]) ?>
             <?= $form
                 ->field($model, 'username')
                 ->textInput([
-                    'placeholder'=>'Utente',
+                    'placeholder'=>$model->getAttributeLabel('username'),
                     'autocomplete'=>'off',
                     'class'=>'form-control',
                     'maxlength' => 255, 'autofocus'=>true,
