@@ -54,7 +54,7 @@
 <!-- end::Head -->
 <?php echo $this->beginBody() ?>
 <!-- begin::Body -->
-<body  class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading"  >
+<body  class="kt-page--loading-enabled kt-page--loading kt-page--fixed kt-header--fixed kt-header--minimize-topbar kt-header-mobile--fixed kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-subheader--enabled kt-subheader--transparent kt-page--loading"  >
 <!-- begin:: Page -->
 <?php echo $content ?>
 <!-- end:: Page -->
