@@ -2,6 +2,7 @@
 
 
 namespace webvimark\modules\UserManagement\assets;
+use app\assets\AppAsset;
 use yii\web\AssetBundle;
 
 
@@ -15,6 +16,10 @@ class LoginAsset extends AssetBundle
 
     public $css =[
         "login.css"
+    ];
+
+    public $depends = [
+        AppAsset::class,
     ];
 
 }

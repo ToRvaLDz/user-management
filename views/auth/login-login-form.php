@@ -60,4 +60,3 @@
     <?php ActiveForm::end() ?>
 </div>
 <!-- END LOGIN FORM -->
-
