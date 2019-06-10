@@ -4,6 +4,8 @@
  * @var $model webvimark\modules\UserManagement\models\forms\LoginForm
  */
 use webvimark\modules\UserManagement\assets\LoginAsset;
+use app\assets\AppAsset;
+AppAsset::register($this);
 LoginAsset::register($this);
 ?>
 
