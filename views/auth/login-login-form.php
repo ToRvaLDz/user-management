@@ -6,7 +6,9 @@
 
     use webvimark\modules\UserManagement\UserManagementModule;
     use app\widgets\ActiveForm;
- ?>
+    use yii\bootstrap4\Html;
+
+?>
 
 <!-- BEGIN LOGIN FORM -->
 <div class="kt-login__signin">
