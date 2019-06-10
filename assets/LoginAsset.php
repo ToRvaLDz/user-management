@@ -13,5 +13,9 @@ class LoginAsset extends AssetBundle
 		"login.js"
     ];
 
+    public $css =[
+        "login.css"
+    ];
+
 }
 
