@@ -36,7 +36,7 @@ class AuthController extends BaseController
 	/**
 	 * Login form
 	 *
-	 * @return array|string
+	 * @return string
 	 */
 	public function actionLogin()
 	{
@@ -47,13 +47,15 @@ class AuthController extends BaseController
 
 		$model = new LoginForm();
 
-		if ( Yii::$app->request->isAjax AND $model->load(Yii::$app->request->post()) AND $model->login() )
-		{
-			return $this->goBack();
-		}
-
-        Yii::$app->response->format = Response::FORMAT_JSON;
-		return ActiveForm::validate($model);
+		if ( Yii::$app->request->isAjax AND $model->load(Yii::$app->request->post())) {
+            if ($model->login()) {
+                return $this->goBack();
+            } else {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                ActiveForm::validate($model);
+            }
+        }
+		return $this->renderIsAjax('login', compact('model'));
 	}
 
 	/**
