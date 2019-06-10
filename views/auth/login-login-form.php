@@ -49,11 +49,11 @@
             </div>
         </div>
         <div class="kt-login__actions">
-            <?= Html::button(
+            <?= Html::submitButton(
                 UserManagementModule::t('front', 'Login'),
                 [
                     'id'=>'kt_login_signin_submit',
-                    'class' => 'btn btn-pill kt-login__btn-primary'
+                    'class' => 'btn btn-brand btn-elevate kt-login__btn-primary'
                 ]
             ) ?>
         </div>

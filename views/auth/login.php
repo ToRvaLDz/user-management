@@ -7,7 +7,6 @@ use webvimark\modules\UserManagement\assets\LoginAsset;
 
 $loginAsset=LoginAsset::register($this);
 ?>
-
 <!-- BEGIN LOGIN FORM -->
 <div class="kt-grid kt-grid--ver kt-grid--root kt-page">
     <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v3 kt-login--signin" id="kt_login">
