@@ -3,87 +3,46 @@
  * @var $this yii\web\View
  * @var $model webvimark\modules\UserManagement\models\forms\LoginForm
  */
+use app\assets\LoginAsset;
+use yii\web\View;
 
-use webvimark\modules\UserManagement\components\GhostHtml;
-use webvimark\modules\UserManagement\UserManagementModule;
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
+
+LoginAsset::register($this);
+
 ?>
 
-<div class="container" id="login-wrapper">
-	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><?= UserManagementModule::t('front', 'Authorization') ?></h3>
-				</div>
-				<div class="panel-body">
 
-					<?php $form = ActiveForm::begin([
-						'id'      => 'login-form',
-						'options'=>['autocomplete'=>'off'],
-						'validateOnBlur'=>false,
-						'fieldConfig' => [
-							'template'=>"{input}\n{error}",
-						],
-					]) ?>
+<!-- BEGIN LOGIN FORM -->
 
-					<?= $form->field($model, 'username')
-						->textInput(['placeholder'=>$model->getAttributeLabel('username'), 'autocomplete'=>'off']) ?>
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-2" id="m_login" style="background-image: url(/theme/default/assets/app/media/img//bg/bg-3.jpg);">
+    <div class="m-grid__item m-grid__item--fluid	m-login__wrapper">
+        <div class="m-login__container">
+            <div class="m-login__logo">
+                <a href="#">
+                    <img src="/img/login-logo.png">
+                </a>
+            </div>
+            <?= $this->render('login-login-form', ['model' => $model]) ?>
+            <?= $this->render('login-pwd-recovery-form', ['modelrecovery' => $modelrecovery]) ?>
 
-					<?= $form->field($model, 'password')
-						->passwordInput(['placeholder'=>$model->getAttributeLabel('password'), 'autocomplete'=>'off']) ?>
-
-					<?= (isset(Yii::$app->user->enableAutoLogin) && Yii::$app->user->enableAutoLogin) ? $form->field($model, 'rememberMe')->checkbox(['value'=>true]) : '' ?>
-
-					<?= Html::submitButton(
-						UserManagementModule::t('front', 'Login'),
-						['class' => 'btn btn-lg btn-primary btn-block']
-					) ?>
-
-					<div class="row registration-block">
-						<div class="col-sm-6">
-							<?= GhostHtml::a(
-								UserManagementModule::t('front', "Registration"),
-								['/user-management/auth/registration']
-							) ?>
-						</div>
-						<div class="col-sm-6 text-right">
-							<?= GhostHtml::a(
-								UserManagementModule::t('front', "Forgot password ?"),
-								['/user-management/auth/password-recovery']
-							) ?>
-						</div>
-					</div>
-
-
-
-
-					<?php ActiveForm::end() ?>
-				</div>
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
+<!-- END LOGIN FORM -->
 
 <?php
-$css = <<<CSS
-html, body {
-	background: #eee;
-	-webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
-	box-shadow: inset 0 0 100px rgba(0,0,0,.5);
-	height: 100%;
-	min-height: 100%;
-	position: relative;
-}
-#login-wrapper {
-	position: relative;
-	top: 30%;
-}
-#login-wrapper .registration-block {
-	margin-top: 15px;
-}
-CSS;
+if($this->context->action->id=='password-recovery') {
+    $js=<<<JS
 
-$this->registerCss($css);
-?>
+$('#m_login_forget_password').trigger("click");
+
+JS;
+
+
+$this->registerJs(
+    $js,
+    View::POS_READY,
+    'recovery'
+);
+
+}

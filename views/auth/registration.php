@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?= $form->field($model, 'repeat_password')->passwordInput(['maxlength' => 255, 'autocomplete'=>'off']) ?>
 
-	<?= $form->field($model, 'captcha')->widget(Captcha::className(), [
+	<?= $form->field($model, 'captcha')->widget(Captcha::class, [
 		'template' => '<div class="row"><div class="col-sm-2">{image}</div><div class="col-sm-3">{input}</div></div>',
 		'captchaAction'=>['/user-management/auth/captcha']
 	]) ?>

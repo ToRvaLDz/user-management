@@ -8,7 +8,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 use webvimark\extensions\GridBulkActions\GridBulkActions;
 use webvimark\extensions\GridPageSize\GridPageSize;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /**
  * @var yii\web\View $this
@@ -52,16 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?= GridView::widget([
 				'id'=>'auth-item-group-grid',
 				'dataProvider' => $dataProvider,
-				'pager'=>[
-					'options'=>['class'=>'pagination pagination-sm'],
-					'hideOnSinglePage'=>true,
-					'lastPageLabel'=>'>>',
-					'firstPageLabel'=>'<<',
-				],
-				'layout'=>'{items}<div class="row"><div class="col-sm-8">{pager}</div><div class="col-sm-4 text-right">{summary}'.GridBulkActions::widget([
-						'gridId'=>'auth-item-group-grid',
-						'actions'=>[Url::to(['bulk-delete'])=>GridBulkActions::t('app', 'Delete'),],
-						]).'</div></div>',
 				'filterModel' => $searchModel,
 				'columns' => [
 					['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
@@ -81,6 +71,52 @@ $this->params['breadcrumbs'][] = $this->title;
 						'contentOptions'=>['style'=>'width:70px; text-align:center;'],
 					],
 				],
+				'perfectScrollbar' => false,
+				'condensed' => false,
+				'floatHeader' => false,
+				'bordered' => true,
+				'striped'=>true,
+				'hover' => true,
+				'persistResize'=>false,
+				'filterSelector' => '#zero',
+				'tableOptions' => ['class'=>'m-datatable__table'],
+				'headerRowOptions' => ['class'=>'m-datatable__row'],
+				'rowOptions' => ['class'=>'m-datatable__row'],
+				'panel' => [
+					'heading' => '<div class="m-form m-form--label-align-right m--margin-bottom-20 ">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 m--align-right">
+                                <a href="/' . Yii::$app->request->getPathInfo() .'" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                    <span>
+                                        <i class="la la-times-circle-o"></i>
+                                        <span>
+                                            Rimuovi filtri
+                                        </span>
+                                    </span>
+                                </a>
+                                <div class="m-separator m-separator--dashed d-xl-none d-md-none"></div>
+                            </div>
+                        </div>
+                    </div>',
+					'showFooter' => false
+				],
+				'toolbar'=>[],
+				'panelHeadingTemplate' => '
+                    {heading}
+                    {pager}
+                <div class="m-datatable__pager-info">
+                    {summary}
+                </div>
+                <div class="clearfix"></div>',
+				'panelFooterTemplate' => '
+                    {pager}
+                
+                <div class="m-datatable__pager-info">
+                    {summary}
+                </div>
+                <div class="clearfix"></div>
+
+                '
 			]); ?>
 		
 			<?php Pjax::end() ?>
