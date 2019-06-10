@@ -23,8 +23,6 @@ LoginAsset::register($this);
                 </a>
             </div>
             <?= $this->render('login-login-form', ['model' => $model]) ?>
-            <?= $this->render('login-pwd-recovery-form', ['modelrecovery' => $modelrecovery]) ?>
-
         </div>
     </div>
 </div>
