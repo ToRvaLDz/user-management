@@ -36,7 +36,7 @@ class AuthController extends BaseController
 	/**
 	 * Login form
 	 *
-	 * @return string
+	 * @return array|string
 	 */
 	public function actionLogin()
 	{
@@ -52,7 +52,7 @@ class AuthController extends BaseController
                 return $this->goBack();
             } else {
                 Yii::$app->response->format = Response::FORMAT_JSON;
-                ActiveForm::validate($model);
+                return ActiveForm::validate($model);
             }
         }
 		return $this->renderIsAjax('login', compact('model'));
