@@ -49,11 +49,6 @@ use yii\helpers\Html;
                 <span></span>
             </label>
         </div>
-        <div class="col m--align-right m-login__form-right">
-            <a href="javascript:;" id="m_login_forget_password" class="m-link">
-                Password dimenticata?
-            </a>
-        </div>
     </div>
     <div class="m-login__form-action">
         <?= Html::submitButton(
