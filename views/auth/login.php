@@ -3,7 +3,7 @@
  * @var $this yii\web\View
  * @var $model webvimark\modules\UserManagement\models\forms\LoginForm
  */
-use app\assets\LoginAsset;
+use webvimark\modules\UserManagement\assets\LoginAsset;
 use yii\web\View;
 
 
