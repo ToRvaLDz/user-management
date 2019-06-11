@@ -22,7 +22,7 @@ class GhostMenu extends Menu
     public $openedCssClass='kt-menu__item--open kt-menu__item--here';
     public $activeCssClass='kt-menu__item--active';
     public $linkTemplate='<a href="{url}" class="kt-menu__link"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{label}</span></a>';
-    public $labelTemplate='<a  href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">{label}</span><i class="kt-menu__ver-arrow la la-angle-right"></i>';
+    public $labelTemplate='<a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">{label}</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>';
     public $submenuTemplate='<div class="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left"><ul class="kt-menu__subnav">{items}</ul></div>';
     public $itemOptions=[
         'class'=>['kt-menu__item kt-menu__item--submenu kt-menu__item--rel'],
