@@ -1,125 +1,139 @@
 <?php
 
-use webvimark\modules\UserManagement\components\GhostHtml;
-use webvimark\modules\UserManagement\UserManagementModule;
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\helpers\ArrayHelper;
-use yii\widgets\Pjax;
-use webvimark\extensions\GridBulkActions\GridBulkActions;
-use webvimark\extensions\GridPageSize\GridPageSize;
-use kartik\grid\GridView;
-
-/**
- * @var yii\web\View $this
- * @var yii\data\ActiveDataProvider $dataProvider
- * @var webvimark\modules\UserManagement\models\rbacDB\search\AuthItemGroupSearch $searchModel
- */
-
-$this->title = UserManagementModule::t('back', 'Permission groups');
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="auth-item-group-index">
-
-	<h2 class="lte-hide-title"><?= $this->title ?></h2>
-
-	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-	<div class="panel panel-default">
-
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-sm-6">
-					<p>
-						<?= GhostHtml::a(
-							'<span class="glyphicon glyphicon-plus-sign"></span> ' . UserManagementModule::t('back', 'Create'),
-							['create'],
-							['class' => 'btn btn-success']
-						) ?>
-					</p>
-				</div>
-
-				<div class="col-sm-6 text-right">
-					<?= GridPageSize::widget(['pjaxId'=>'auth-item-group-grid-pjax']) ?>
-				</div>
-			</div>
+    use webvimark\modules\UserManagement\components\GhostHtml;
+    use webvimark\modules\UserManagement\components\GridView;
+    use webvimark\modules\UserManagement\UserManagementModule;
+    use yii\helpers\Html;
+    use yii\web\View;
 
 
-			<?php Pjax::begin([
-				'id'=>'auth-item-group-grid-pjax',
-			]) ?>
+    /**
+     * @var yii\web\View $this
+     * @var yii\data\ActiveDataProvider $dataProvider
+     * @var webvimark\modules\UserManagement\models\rbacDB\search\AuthItemGroupSearch $searchModel
+     */
 
-			<?= GridView::widget([
-				'id'=>'auth-item-group-grid',
-				'dataProvider' => $dataProvider,
-				'filterModel' => $searchModel,
-				'columns' => [
-					['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
+    $title=UserManagementModule::t('back', 'Permessi Gruppi');
+    $icon="flaticon-users";
+    $subtitle='';
 
-					[
-						'attribute'=>'name',
-						'value'=>function($model){
-								return Html::a($model->name, ['update', 'id'=>$model->code], ['data-pjax'=>0]);
-							},
-						'format'=>'raw',
-					],
-					'code',
+    $this->title = (!empty($subtitle) ? $subtitle : $title). ' @ ' . yii::$app->id;
+    $this->params['breadcrumbs'][] = (!empty($subtitle) ? $subtitle : $title);
 
-					['class' => 'yii\grid\CheckboxColumn', 'options'=>['style'=>'width:10px'] ],
-					[
-						'class' => 'yii\grid\ActionColumn',
-						'contentOptions'=>['style'=>'width:70px; text-align:center;'],
-					],
-				],
-				'perfectScrollbar' => false,
-				'condensed' => false,
-				'floatHeader' => false,
-				'bordered' => true,
-				'striped'=>true,
-				'hover' => true,
-				'persistResize'=>false,
-				'filterSelector' => '#zero',
-				'tableOptions' => ['class'=>'m-datatable__table'],
-				'headerRowOptions' => ['class'=>'m-datatable__row'],
-				'rowOptions' => ['class'=>'m-datatable__row'],
-				'panel' => [
-					'heading' => '<div class="m-form m-form--label-align-right m--margin-bottom-20 ">
-                        <div class="row align-items-center">
-                            <div class="col-lg-12 m--align-right">
-                                <a href="/' . Yii::$app->request->getPathInfo() .'" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
-                                    <span>
-                                        <i class="la la-times-circle-o"></i>
-                                        <span>
-                                            Rimuovi filtri
-                                        </span>
-                                    </span>
-                                </a>
-                                <div class="m-separator m-separator--dashed d-xl-none d-md-none"></div>
-                            </div>
-                        </div>
-                    </div>',
-					'showFooter' => false
-				],
-				'toolbar'=>[],
-				'panelHeadingTemplate' => '
-                    {heading}
-                    {pager}
-                <div class="m-datatable__pager-info">
-                    {summary}
-                </div>
-                <div class="clearfix"></div>',
-				'panelFooterTemplate' => '
-                    {pager}
-                
-                <div class="m-datatable__pager-info">
-                    {summary}
-                </div>
-                <div class="clearfix"></div>
+    echo Html::tag('div', GridView::widget([
+        'id'=>'user-grid',
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
 
-                '
-			]); ?>
-		
-			<?php Pjax::end() ?>
-		</div>
-	</div>
-</div>
+            [
+                'attribute'=>'name',
+                'value'=>function($model){
+                    return Html::a($model->name, ['update', 'id'=>$model->code], ['data-pjax'=>0]);
+                },
+                'format'=>'raw',
+            ],
+            'code',
+
+            ['class' => 'yii\grid\CheckboxColumn', 'options'=>['style'=>'width:10px'] ],
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'headerOptions'=>['style'=>'min-width:120px; text-align:center;'],
+                'contentOptions'=>['style'=>'width:70px; text-align:center;'],
+                'template' => '{view} {delete}',
+                'buttons'=>[
+                    'view' => function($url, $model){
+                        return Html::a('<i class="fa fa-eye"></i>', ['view','id'=>$model->code], [
+                            'data'=>[
+                                'pjax'=>0,
+                                'toggle'=>'m-tooltip',
+                                'title'=>'Visualizza'
+                            ]
+                        ]);
+                    },
+                    'update' => function($url, $model){
+                        return Html::a('<i class="fa fa-edit"></i>', ['update','id'=>$model->code], [
+                            'data'=>[
+                                'pjax'=>0,
+                                'toggle'=>'m-tooltip',
+                                'title'=>'Visualizza'
+                            ]
+                        ]);
+                    },
+                    'delete' => function($url, $model){
+                        return Html::a('<i class="fa fa-trash"></i>', '#', [
+                            'class'=>['deletebutton'],
+                            'data' => [
+                                'id' => $model->code,
+                                'toggle'=>'m-tooltip',
+                                'title' =>'Elimina'
+                            ],
+                        ]);
+                    }
+                ]
+            ],
+        ],
+        'panel' => [
+            'headTitle' => $this->title,
+            'type' => 'brand',
+            'icon'=> 'flaticon-layers',
+            'footer'=>false,
+            'headTools'=>  GhostHtml::a('<i class="la la-plus"></i>',['create'], [
+                'class'=>['view-button btn btn-sm btn-icon btn-warning btn-icon-md'],
+                'data' => [
+                    'placement'=>'left',
+                    'pjax'=>0,
+                    'toggle'=>'kt-tooltip',
+                    'title' => UserManagementModule::t('back', 'Create')
+                ],
+            ])
+        ],
+    ]),['class'=>$this->title .'-index']); ?>
+<?php
+    $js=<<<JS
+    $(document).on('click','.deletebutton',function(e){
+            e.preventDefault();
+            id=$(this).data('id');
+             swal.fire({
+                title: 'Siete sicuri?',
+                text: "Non sarà possibile annullare questa operazione!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, continua!',
+                cancelButtonText: 'No, annulla!',
+                reverseButtons: true
+            }).then(function(result){
+                if (result.value) {
+                     KTApp.blockPage({
+                        overlayColor: '#000000',
+                        type: 'loader',
+                        state: 'success',
+                        message: 'Attendere...'
+                    });
+                    jQuery.ajax({
+                        url: 'delete?id=' + id,
+                        type: 'GET',
+                        success: function() {
+                            KTApp.unblockPage();
+                            $.pjax.reload({container:'#user-grid-pjax'});
+                        },
+                        error: function() {
+                            KTApp.unblockPage();
+                            $.pjax.reload({container:'#user-grid-pjax'});
+                        }
+                    });
+                } else if (result.dismiss === 'cancel') {
+                    swal.fire(
+                        'Annullato',
+                        'L\'operazione è stata annullata',
+                        'error'
+                    )
+                }
+            });           
+        });
+    KTApp.initTooltips();
+JS;
+
+    $this->registerJs($js, View::POS_READY);
