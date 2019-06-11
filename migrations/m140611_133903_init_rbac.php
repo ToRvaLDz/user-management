@@ -9,7 +9,7 @@ class m140611_133903_init_rbac extends \yii\db\Migration
 	{
 		$tableOptions = null;
 		if ($this->db->driverName === 'mysql') {
-			$tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
+			$tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
 		}
 		
 	        // Check if auth_rule_table Table exist

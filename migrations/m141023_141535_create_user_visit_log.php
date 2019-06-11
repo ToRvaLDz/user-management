@@ -9,7 +9,7 @@ class m141023_141535_create_user_visit_log extends Migration
 		$tableOptions = null;
 		if ( $this->db->driverName === 'mysql' )
 		{
-			$tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
+			$tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
 		}
 
 	        // Check if user_visit_log_table Table exist

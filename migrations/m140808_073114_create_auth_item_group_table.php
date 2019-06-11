@@ -9,7 +9,7 @@ class m140808_073114_create_auth_item_group_table extends Migration
 		$tableOptions = null;
 		if ( $this->db->driverName === 'mysql' )
 		{
-			$tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
+			$tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
 		}
 		
 	        // Check if auth_item_group_table Table exist
