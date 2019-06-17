@@ -9,7 +9,7 @@ use yii\helpers\Html;
  * @var webvimark\modules\UserManagement\models\forms\ChangeOwnPasswordForm $model
  */
 
-use app\assets\LoginAsset;
+use webvimark\modules\UserManagement\assets\LoginAsset;
 LoginAsset::register($this);
 
 
