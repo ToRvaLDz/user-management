@@ -105,10 +105,19 @@ use kartik\grid\GridView;
 				[
 					'class' => 'kartik\grid\ActionColumn',
 					'contentOptions'=>['style'=>'width:70px; text-align:center;'],
-					'template' => '{view} {delete}',
+					'template' => '{view} {edit} {delete}',
 					'buttons'=>[
 						'view' => function($url, $model){
 							return Html::a('<i class="fa fa-eye"></i>', ['view','id'=>$model->name], [
+								'data'=>[
+									'pjax'=>0,
+									'toggle'=>'m-tooltip',
+									'title'=>'Visualizza'
+								]
+							]);
+						},
+                        'edit' => function($url, $model){
+							return Html::a('<i class="fa fa-edit"></i>', ['update','id'=>$model->name], [
 								'data'=>[
 									'pjax'=>0,
 									'toggle'=>'m-tooltip',

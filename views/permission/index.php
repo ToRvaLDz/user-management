@@ -134,6 +134,15 @@ use yii\helpers\Html;
 								]
 							]);
 						},
+                        'edit' => function($url, $model){
+							return Html::a('<i class="fa fa-edit"></i>', ['update','id'=>$model->name], [
+								'data'=>[
+									'pjax'=>0,
+									'toggle'=>'m-tooltip',
+									'title'=>'Modifica'
+								]
+							]);
+						},
 						'delete' => function($url, $model){
 							return Html::a('<i class="fa fa-trash-o"></i>', '#', [
 								'class'=>['deletebutton'],
