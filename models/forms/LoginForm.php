@@ -53,8 +53,19 @@ class LoginForm extends Model
 
 		if ( !$this->hasErrors() )
 		{
+
 			$user = $this->getUser();
-			if ( !$user || !$user->validatePassword($this->password) )
+			if(yii::$app->components['ldap'] && count(yii::$app->components['ldap']['options'])>0) {
+                if ($this->username == 'superadmin') {
+                    $valido = !$user || !$user->validatePassword($this->password);
+                } else {
+                    $valido = !$user || !\Yii::$app->ldap->authenticate($this->username, $this->password);
+                }
+            }else{
+                $valido = !$user || !\Yii::$app->ldap->authenticate($this->username, $this->password);
+            }
+
+			if ( $valido)
 			{
 				$this->addError('password', UserManagementModule::t('front', 'Incorrect username or password.'));
 			}
