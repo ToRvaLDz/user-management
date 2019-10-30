@@ -65,7 +65,7 @@ class LoginForm extends Model
                 $valido = !$user || !\Yii::$app->ldap->authenticate($this->username, $this->password);
             }
 
-			if ( $valido)
+			if (!$valido)
 			{
 				$this->addError('password', UserManagementModule::t('front', 'Incorrect username or password.'));
 			}
