@@ -62,7 +62,7 @@ class LoginForm extends Model
                     $nonvalido = !$user || !\Yii::$app->ldap->authenticate($this->username, $this->password);
                 }
             }else{
-                $nonvalido = !$user || !\Yii::$app->ldap->authenticate($this->username, $this->password);
+                $nonvalido = !$user || !$user->validatePassword($this->password);
             }
 
 			if ($nonvalido)
