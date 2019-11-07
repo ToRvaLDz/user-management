@@ -15,7 +15,7 @@ $loginAsset=LoginAsset::register($this);
                 <div class="kt-login__container">
                     <div class="kt-login__logo">
                         <a href="#">
-                            <img src="<?= yii::getAlias('@web/login-logo.png'); ?>">
+                            <img src="<?= yii::$app->params['login-logo'] ?>">
                         </a>
                     </div>
                      <?= $this->render('login-login-form', ['model' => $model]) ?>
