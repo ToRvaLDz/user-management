@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view',
 $this->params['breadcrumbs'][] = UserManagementModule::t('back', 'Modifica');
 ?>
 <div class="user-edit">
-    <div class="m-portlet m-portlet--mobile">
+    <div class="kt-portlet kt-portlet--mobile">
         <div class="m-portlet__head">
             <div class="m-portlet__head-caption">
                 <div class="m-portlet__head-title">

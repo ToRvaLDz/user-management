@@ -26,11 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
 <div class="permission-view">
-    <div class="m-portlet m-portlet--mobile">
-    <div class="m-portlet__head">
-        <div class="m-portlet__head-caption">
-            <div class="m-portlet__head-title">
-                <h3 class="m-portlet__head-text">
+    <div class="kt-portlet kt-portlet--mobile">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-caption">
+            <div class="kt-portlet__head-title">
+                <h3 class="kt-portlet__head-text">
                     <i class="<?= $icon ?>"></i> <?= Html::encode($this->title) ?>
                     <small>
 						<?= Html::encode($subtitle) ?>
@@ -38,9 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 </h3>
             </div>
         </div>
-        <div class="m-portlet__head-tools">
-            <ul class="m-portlet__nav">
-                <li class="m-portlet__nav-item">
+        <div class="kt-portlet__head-tools">
+            <ul class="kt-portlet__nav">
+                <li class="kt-portlet__nav-item">
                     <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
                         <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
                             <i class="la la-plus m--hide"></i>

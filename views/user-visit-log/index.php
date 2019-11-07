@@ -59,7 +59,7 @@
                         return Html::a('<i class="fa fa-eye"></i>', ['view','id'=>$model->id], [
                             'data'=>[
                                 'pjax'=>0,
-                                'toggle'=>'m-tooltip',
+                                'toggle'=>'kt-tooltip',
                                 'title'=>'Visualizza'
                             ]
                         ]);

@@ -48,7 +48,7 @@
                         return Html::a('<i class="fa fa-eye"></i>', ['view','id'=>$model->code], [
                             'data'=>[
                                 'pjax'=>0,
-                                'toggle'=>'m-tooltip',
+                                'toggle'=>'kt-tooltip',
                                 'title'=>'Visualizza'
                             ]
                         ]);
@@ -57,7 +57,7 @@
                         return Html::a('<i class="fa fa-edit"></i>', ['update','id'=>$model->code], [
                             'data'=>[
                                 'pjax'=>0,
-                                'toggle'=>'m-tooltip',
+                                'toggle'=>'kt-tooltip',
                                 'title'=>'Visualizza'
                             ]
                         ]);
@@ -67,7 +67,7 @@
                             'class'=>['deletebutton'],
                             'data' => [
                                 'id' => $model->code,
-                                'toggle'=>'m-tooltip',
+                                'toggle'=>'kt-tooltip',
                                 'title' =>'Elimina'
                             ],
                         ]);

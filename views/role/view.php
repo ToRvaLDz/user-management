@@ -33,11 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <div class="user-index">
-    <div class="m-portlet m-portlet--mobile">
-    <div class="m-portlet__head">
-        <div class="m-portlet__head-caption">
-            <div class="m-portlet__head-title">
-                <h3 class="m-portlet__head-text">
+    <div class="kt-portlet kt-portlet--mobile">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-caption">
+            <div class="kt-portlet__head-title">
+                <h3 class="kt-portlet__head-text">
                     <i class="<?= $icon ?>"></i> <?= Html::encode($title) ?>
                     <small>
 						<?= Html::encode($subtitle) ?>
@@ -45,27 +45,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 </h3>
             </div>
         </div>
-        <div class="m-portlet__head-tools">
-            <ul class="m-portlet__nav">
-                <li class="m-portlet__nav-item">
-                    <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
-                        <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
-                            <i class="la la-plus m--hide"></i>
-                            <i class="la la-ellipsis-h m--font-brand"></i>
+        <div class="kt-portlet__head-tools">
+            <ul class="kt-portlet__nav">
+                <li class="kt-portlet__nav-item">
+                    <div class="kt-dropdown kt-dropdown--inline kt-dropdown--arrow kt-dropdown--align-right kt-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
+                        <a href="#" class="kt-portlet__nav-link kt-portlet__nav-link--icon kt-portlet__nav-link--icon-xl kt-dropdown__toggle">
+                            <i class="la la-plus kt--hide"></i>
+                            <i class="la la-ellipsis-h kt--font-brand"></i>
                         </a>
-                        <div class="m-dropdown__wrapper">
-                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
-                            <div class="m-dropdown__inner">
-                                <div class="m-dropdown__body">
-                                    <div class="m-dropdown__content">
-                                        <ul class="m-nav">
-                                            <li class="m-nav__section m-nav__section--first">
-                                                <span class="m-nav__section-text">
+                        <div class="kt-dropdown__wrapper">
+                            <span class="kt-dropdown__arrow kt-dropdown__arrow--right kt-dropdown__arrow--adjust"></span>
+                            <div class="kt-dropdown__inner">
+                                <div class="kt-dropdown__body">
+                                    <div class="kt-dropdown__content">
+                                        <ul class="kt-nav">
+                                            <li class="kt-nav__section kt-nav__section--first">
+                                                <span class="kt-nav__section-text">
                                                     Azioni
                                                 </span>
                                             </li>
-                                            <li class="m-nav__item">
-												<?= GhostHtml::a('<i class="m-nav__link-icon fa fa-plus"></i>
+                                            <li class="kt-nav__item">
+												<?= GhostHtml::a('<i class="kt-nav__link-icon fa fa-plus"></i>
                                                         <span class="m-nav__link-text">
                                                                 Aggiungi nuovo ruolo
                                                             </span>',

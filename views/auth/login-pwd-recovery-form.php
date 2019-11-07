@@ -9,23 +9,23 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\captcha\Captcha;
 ?>
-            <div class="m-login__forget-password">
-                <div class="m-login__head">
-                    <h3 class="m-login__title">
+            <div class="kt-login__forget-password">
+                <div class="kt-login__head">
+                    <h3 class="kt-login__title">
                         Password dimenticata?
                     </h3>
-                    <div class="m-login__desc">
+                    <div class="kt-login__desc">
                         Inserisci il tuo indirizzo email per recuperare la password:
                     </div>
                 </div>
                 <?php $form = ActiveForm::begin([
-                    'options'=>['class'=>'m-login__form m-form'],
+                    'options'=>['class'=>'kt-login__form kt-form'],
                     'action'=> 'password-recovery',
                     'method' => 'post',
 //                    'enableClientValidation' => false,
                     'enableAjaxValidation' => true,
                     'validateOnBlur'=>true,
-                    'fieldConfig' => ['options' => ['class' => 'form-group m-form__group'],'errorOptions'=>['class'=>'form-control-feedback']],
+                    'fieldConfig' => ['options' => ['class' => 'form-group kt-form__group'],'errorOptions'=>['class'=>'form-control-feedback']],
                     'errorCssClass' => 'has-danger',
                 ]) ?>
 
@@ -34,7 +34,7 @@ use yii\captcha\Captcha;
                         ->textInput([
                             'placeholder'=>$modelrecovery->getAttributeLabel('email'),
                             'autocomplete'=>'off',
-                            'class'=>'form-control m-input',
+                            'class'=>'form-control kt-input',
                             'maxlength' => 255, 'autofocus'=>true
                         ])
                         ->label(false);
@@ -42,13 +42,13 @@ use yii\captcha\Captcha;
 
 
 
-                    <div class="m-login__form-action">
+                    <div class="kt-login__form-action">
                         <?= Html::submitButton(
                             'Procedi',
-                            ['class' => 'btn m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary']
+                            ['class' => 'btn kt-btn kt-btn--pill kt-btn--custom kt-btn--air kt-login__btn kt-login__btn--primary']
                         ) ?>
                         &nbsp;&nbsp;
-                        <button id="m_login_forget_password_cancel" class="btn m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn">
+                        <button id="m_login_forget_password_cancel" class="btn kt-btn kt-btn--pill kt-btn--custom kt-btn--air kt-login__btn">
                             Annulla
                         </button>
                     </div>
