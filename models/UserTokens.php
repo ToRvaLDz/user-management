@@ -15,7 +15,7 @@ use Yii;
  * @property integer $updated_at
  * @property User $user
  */
-class UserTokens extends ActiveRecord
+class UserTokens extends \webvimark\components\BaseActiveRecord
 {
     /**
      * @inheritdoc
