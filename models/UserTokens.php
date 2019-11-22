@@ -2,7 +2,6 @@
 
 namespace webvimark\modules\UserManagement\models;
 
-use webvimark\modules\UserManagement\components\UserIdentity;
 use webvimark\modules\UserManagement\UserManagementModule;
 use Yii;
 
@@ -36,7 +35,7 @@ class UserTokens extends ActiveRecord
             [['user_id'], 'integer'],
             [['token'], 'string'],
             [['banned'], 'boolean'],
-            [['created_at','updated_at'],'safe']
+            [['created_at','updated_at','id'],'safe']
         ];
     }
 
@@ -47,6 +46,7 @@ class UserTokens extends ActiveRecord
     {
         return [
             'id'         => UserManagementModule::t('back', 'ID'),
+            'user_id'         => UserManagementModule::t('back', 'User ID'),
             'token'      => UserManagementModule::t('back', 'Token'),
             'banned'     => UserManagementModule::t('back', 'Banned'),
         ];

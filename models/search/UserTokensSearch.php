@@ -15,8 +15,7 @@ class UserTokensSearch extends UserTokens
     public function rules()
     {
         return [
-            [['token', 'user_id'], 'required'],
-            [['user_id'], 'integer'],
+            [['user_id','id'], 'integer'],
             [['token'], 'string'],
             [['banned'], 'boolean'],
             [['created_at','updated_at'],'safe']
@@ -48,6 +47,7 @@ class UserTokensSearch extends UserTokens
 		}
 
 		$query->andFilterWhere([
+			$this->tableName() . '.id' => $this->id,
 			$this->tableName() . '.user_id' => $this->user_id,
 			$this->tableName() . '.token' => $this->token,
 			$this->tableName() . '.banned' => $this->banned,
