@@ -2,6 +2,7 @@
 
 namespace webvimark\modules\UserManagement;
 
+
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -10,6 +11,10 @@ class UserManagementModule extends \yii\base\Module
 
 	const SESSION_LAST_ATTEMPT = '_um_last_attempt';
 	const SESSION_ATTEMPT_COUNT = '_um_attempt_count';
+
+    public $jwt_issued;
+    public $jwt_audience;
+    public $jwt_id;
 
 	/**
 	 * If set true, then on registration username will be validated as email
@@ -193,6 +198,9 @@ class UserManagementModule extends \yii\base\Module
 	{
 		parent::init();
 
+        if(property_exists('jwt',yii::$app->config->conponents) && (!array_key_exists('jwt_issuer',yii::$app->params) || !array_key_exists('jwt_audience',yii::$app->params) || !array_key_exists('jwt_id',yii::$app->params)) ){
+            throw new \yii\web\HttpException(yii::t('front', 'jwt_issuer/jwt_audience/jwt_id params not found in yii::$app->params'));
+        }
 		$this->prepareMailerOptions();
 	}
 

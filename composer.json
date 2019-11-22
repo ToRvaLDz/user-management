@@ -16,6 +16,7 @@
 		"webvimark/grid-page-size": "^1.0.0",
 		"kartik-v/yii2-grid": "dev-master",
 		"kartik-v/yii2-detail-view": "dev-master",
-		"kartik-v/yii2-widget-select2": "2.*"
-	}
+		"kartik-v/yii2-widget-select2": "2.*",
+		"sizeg/yii2-jwt": "^2.0"
+    }
 }
