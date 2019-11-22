@@ -3,6 +3,7 @@ namespace webvimark\modules\UserManagement\models\forms;
 
 use webvimark\helpers\LittleBigHelper;
 use webvimark\modules\UserManagement\models\User;
+use webvimark\modules\UserManagement\models\UserTokens;
 use webvimark\modules\UserManagement\UserManagementModule;
 use yii\base\Model;
 use Yii;
@@ -118,7 +119,32 @@ class LoginForm extends Model
         }
 		if ( $this->validate() )
 		{
-			return Yii::$app->user->login($this->getUser(), $this->rememberMe ? Yii::$app->user->cookieLifetime : 0);
+			if(Yii::$app->user->login($this->getUser(), $this->rememberMe ? Yii::$app->user->cookieLifetime : 0)){
+                if($this->rememberMe && array_key_exists('jwt',yii::$app->components)){
+                    /** @var Jwt $jwt */
+                    $jwt = Yii::$app->jwt;
+                    $signer = $jwt->getSigner('HS256');
+                    $key = $jwt->getKey();
+                    $time = time();
+
+                    $token = $jwt->getBuilder()
+                        ->issuedBy(yii::$app->params['jwt_issuer'])// Configures the issuer (iss claim)
+                        ->permittedFor(yii::$app->params['jwt_audience'])// Configures the audience (aud claim)
+                        ->identifiedBy(yii::$app->params['jwt_id'], true)// Configures the id (jti claim), replicating as a header item
+                        ->issuedAt($time)// Configures the time that the token was issue (iat claim)
+                        ->expiresAt($time+ yii::$app->params['jwt_expire'])// Configures the expiration time of the token (exp claim)
+                        ->withClaim('uid', $this->id)// Configures a new claim, called "uid"
+                        ->getToken($signer, $key); // Retrieves the generated token
+
+                    $tokens= new UserTokens;
+                    $tokens->user_id=$this->id;
+                    $tokens->token=(string) $token;
+                    $tokens->save();
+                    return $tokens->token;
+                }
+            }else{
+			    return true;
+            }
 		}
 		else
 		{
