@@ -46,7 +46,7 @@ class UserTokens extends \webvimark\components\BaseActiveRecord
     {
         return [
             'id'         => UserManagementModule::t('back', 'ID'),
-            'user_id'         => UserManagementModule::t('back', 'User ID'),
+            'user_id'    => UserManagementModule::t('back', 'User ID'),
             'token'      => UserManagementModule::t('back', 'Token'),
             'banned'     => UserManagementModule::t('back', 'Banned'),
         ];
