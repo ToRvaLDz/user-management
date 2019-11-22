@@ -22,7 +22,7 @@ class UserTokens extends \webvimark\components\BaseActiveRecord
      */
     public static function tableName()
     {
-        return Yii::$app->getModule('user-management')->user_tokens;
+        return Yii::$app->getModule('user-management')->user_tokens_table;
     }
 
     /**
