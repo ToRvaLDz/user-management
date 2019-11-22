@@ -113,7 +113,7 @@ class LoginForm extends Model
 	public function login()
 	{
         if(array_key_exists('jwt',yii::$app->components)) {
-            if (!array_key_exists('jwt_issuer', yii::$app->params) || !array_key_exists('jwt_audience', yii::$app->params) || !array_key_exists('jwt_id', yii::$app->params)) {
+            if (!array_key_exists('jwt_expire', yii::$app->params) || !array_key_exists('jwt_issuer', yii::$app->params) || !array_key_exists('jwt_audience', yii::$app->params) || !array_key_exists('jwt_id', yii::$app->params)) {
                 throw new \yii\web\HttpException(500,UserManagementModule::t('front', 'jwt_issuer/jwt_audience/jwt_id params not found in yii::$app->params'));
             }
         }
@@ -132,7 +132,7 @@ class LoginForm extends Model
                         ->permittedFor(yii::$app->params['jwt_audience'])// Configures the audience (aud claim)
                         ->identifiedBy(yii::$app->params['jwt_id'], true)// Configures the id (jti claim), replicating as a header item
                         ->issuedAt($time)// Configures the time that the token was issue (iat claim)
-                        ->expiresAt($time+ yii::$app->params['jwt_expire'])// Configures the expiration time of the token (exp claim)
+                        ->expiresAt($time + yii::$app->params['jwt_expire'])// Configures the expiration time of the token (exp claim)
                         ->withClaim('uid', $this->id)// Configures a new claim, called "uid"
                         ->getToken($signer, $key); // Retrieves the generated token
 
