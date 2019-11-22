@@ -111,6 +111,11 @@ class LoginForm extends Model
 	 */
 	public function login()
 	{
+        if(array_key_exists('jwt',yii::$app->components)) {
+            if (!array_key_exists('jwt_issuer', yii::$app->params) || !array_key_exists('jwt_audience', yii::$app->params) || !array_key_exists('jwt_id', yii::$app->params)) {
+                throw new \yii\web\HttpException(yii::t('front', 'jwt_issuer/jwt_audience/jwt_id params not found in yii::$app->params'));
+            }
+        }
 		if ( $this->validate() )
 		{
 			return Yii::$app->user->login($this->getUser(), $this->rememberMe ? Yii::$app->user->cookieLifetime : 0);
