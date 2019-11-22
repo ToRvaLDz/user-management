@@ -22,12 +22,25 @@ class LoginForm extends Model
 	{
 		return [
 			[['username', 'password'], 'required'],
-			['rememberMe', 'boolean'],
+			['rememberMe', 'validateRememberMe'],
 			['password', 'validatePassword'],
 
 			['username', 'validateIP'],
 		];
 	}
+
+    public function validateRememberMe()
+    {
+        switch ($this->rememberMe){
+            case true:
+            case 'on':
+            case 'true':
+                return true;
+                break;
+            default:
+                return false;
+        }
+    }
 
 	public function attributeLabels()
 	{
