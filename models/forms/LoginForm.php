@@ -113,7 +113,7 @@ class LoginForm extends Model
 	{
         if(array_key_exists('jwt',yii::$app->components)) {
             if (!array_key_exists('jwt_issuer', yii::$app->params) || !array_key_exists('jwt_audience', yii::$app->params) || !array_key_exists('jwt_id', yii::$app->params)) {
-                throw new \yii\web\HttpException(UserManagementModule::t('front', 'jwt_issuer/jwt_audience/jwt_id params not found in yii::$app->params'));
+                throw new \yii\web\HttpException(500,UserManagementModule::t('front', 'jwt_issuer/jwt_audience/jwt_id params not found in yii::$app->params'));
             }
         }
 		if ( $this->validate() )
