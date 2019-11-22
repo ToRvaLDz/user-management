@@ -133,7 +133,7 @@ class LoginForm extends Model
                         ->identifiedBy(yii::$app->params['jwt_id'], true)// Configures the id (jti claim), replicating as a header item
                         ->issuedAt($time)// Configures the time that the token was issue (iat claim)
                         ->expiresAt($time + yii::$app->params['jwt_expire'])// Configures the expiration time of the token (exp claim)
-                        ->withClaim('uid', $this->id)// Configures a new claim, called "uid"
+                        ->withClaim('uid', $this->getUser()->id)// Configures a new claim, called "uid"
                         ->getToken($signer, $key); // Retrieves the generated token
 
                     $tokens= new UserTokens;
