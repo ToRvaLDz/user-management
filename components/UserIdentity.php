@@ -36,7 +36,7 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
 	 */
 	public static function findIdentityByAccessToken($token, $type = null)
 	{
-        if(array_key_exists('jwt',yii::$app->config->components)){
+        if(array_key_exists('jwt',yii::$app->components)){
             $tokens = UserTokens::find()->where(['token'=>(string) $token,'user_id'=>(string) $token->getClaim('uid'),'banned'=>0])->one();
             if($tokens){
                 return $token->user;
@@ -167,7 +167,7 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
 	 */
 	public function generateAuthKey()
 	{
-	    if(array_key_exists('jwt',yii::$app->config->components)){
+	    if(array_key_exists('jwt',yii::$app->components)){
             if(!array_key_exists('jwt_issuer',yii::$app->params) || !array_key_exists('jwt_audience',yii::$app->params) || !array_key_exists('jwt_id',yii::$app->params) ){
                 throw new \yii\web\HttpException(yii::t('front', 'jwt_issuer/jwt_audience/jwt_id params not found in yii::$app->params'));
             }
