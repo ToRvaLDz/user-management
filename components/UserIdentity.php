@@ -2,6 +2,7 @@
 namespace webvimark\modules\UserManagement\components;
 
 use webvimark\modules\UserManagement\models\User;
+use webvimark\modules\UserManagement\models\UserTokens;
 use yii\base\Security;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -36,10 +37,11 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
 	public static function findIdentityByAccessToken($token, $type = null)
 	{
         if(array_key_exists('jwt',yii::$app->config->components)){
-            foreach (self::$users as $user) {
-                if ($user['id'] === (string) $token->getClaim('uid')) {
-                    return new static($user);
-                }
+            $tokens = UserTokens::find()->where(['token'=>(string) $token,'user_id'=>(string) $token->getClaim('uid'),'banned'=>0])->one();
+            if($tokens){
+                return $token->user;
+            }else{
+                return false;
             }
         }else {
             return static::findOne(['auth_key' => $token, 'status' => User::STATUS_ACTIVE]);
@@ -185,7 +187,10 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
                 ->withClaim('uid', $this->id)// Configures a new claim, called "uid"
                 ->getToken($signer, $key); // Retrieves the generated token
 
-            $this->auth_key = (string)$token;
+            $tokens= new UserTokens;
+            $tokens->user_id=$this->id;
+            $tokens->token=(string) $token;
+            $tokens->save();
         }else {
             if (php_sapi_name() == 'cli') {
                 $security = new Security();
