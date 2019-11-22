@@ -18,7 +18,7 @@ class m191122_155739_create_user_tokens_table extends Migration
 
 		// Create user table
 		$this->createTable($tablename, array(
-			'user_id'            => 'int(11',
+			'user_id'            => 'int(11)',
 			'token'              => 'text not null',
 			'banned'             => 'tinyint(1) default 0 not null',
 			'created_at'         => 'datetime DEFAULT CURRENT_TIMESTAMP and ON UPDATE CURRENT_TIMESTAMP',
