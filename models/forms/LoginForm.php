@@ -119,8 +119,10 @@ class LoginForm extends Model
         }
 		if ( $this->validate() )
 		{
-			if(Yii::$app->user->login($this->getUser(), $this->rememberMe ? Yii::$app->user->cookieLifetime : 0)){
+		    $user = $this->getUser();
+			if(Yii::$app->user->login($user, $this->rememberMe ? Yii::$app->user->cookieLifetime : 0)){
                 if($this->rememberMe && array_key_exists('jwt',yii::$app->components)){
+                    $user_id=$user->id;
                     /** @var Jwt $jwt */
                     $jwt = Yii::$app->jwt;
                     $signer = $jwt->getSigner('HS256');
@@ -133,11 +135,11 @@ class LoginForm extends Model
                         ->identifiedBy(yii::$app->params['jwt_id'], true)// Configures the id (jti claim), replicating as a header item
                         ->issuedAt($time)// Configures the time that the token was issue (iat claim)
                         ->expiresAt($time + yii::$app->params['jwt_expire'])// Configures the expiration time of the token (exp claim)
-                        ->withClaim('uid', $this->getUser()->id)// Configures a new claim, called "uid"
+                        ->withClaim('uid', $user_id)// Configures a new claim, called "uid"
                         ->getToken($signer, $key); // Retrieves the generated token
 
                     $tokens= new UserTokens;
-                    $tokens->user_id=$this->id;
+                    $tokens->user_id=$user_id;
                     $tokens->token=(string) $token;
                     $tokens->save();
                     return $tokens->token;
