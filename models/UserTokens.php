@@ -2,6 +2,7 @@
 
 namespace webvimark\modules\UserManagement\models;
 
+use sizeg\jwt\Jwt;
 use webvimark\modules\UserManagement\UserManagementModule;
 use Yii;
 
@@ -13,7 +14,9 @@ use Yii;
  * @property bool $banned
  * @property integer $created_at
  * @property integer $updated_at
+ * @property datetime $expire_at
  * @property User $user
+ * @property int $id [int(11)]
  */
 class UserTokens extends \webvimark\components\BaseActiveRecord
 {
@@ -35,6 +38,7 @@ class UserTokens extends \webvimark\components\BaseActiveRecord
             [['user_id'], 'integer'],
             [['token'], 'string'],
             [['banned'], 'boolean'],
+            [['expire_at'],'integer'],
             [['created_at','updated_at','id'],'safe']
         ];
     }

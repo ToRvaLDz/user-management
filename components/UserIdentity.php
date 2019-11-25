@@ -1,6 +1,7 @@
 <?php
 namespace webvimark\modules\UserManagement\components;
 
+use Lcobucci\JWT\Token;
 use webvimark\modules\UserManagement\models\User;
 use webvimark\modules\UserManagement\models\UserTokens;
 use yii\base\Security;
@@ -31,14 +32,16 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
 		return static::findOne($id);
 	}
 
-	/**
-	 * @inheritdoc
-	 */
+    /**
+     * @param Token $token
+     * @inheritdoc
+     * @throws \Exception
+     */
 	public static function findIdentityByAccessToken($token, $type = null)
 	{
         if(array_key_exists('jwt',yii::$app->components)){
-            $usersTokens= UserTokens::find()->where(['token'=>(string) $token,'user_id'=>(string) $token->getClaim('uid'),'banned'=>0])->one();
-            if($usersTokens){
+            $usersTokens= UserTokens::find()->where(['token'=>(string) $token])->one();
+            if($usersTokens && $usersTokens->user_id === (int) $token->getClaim('uid') && (boolean) $usersTokens->banned === false){
                 return $usersTokens->user;
             }
         }else {

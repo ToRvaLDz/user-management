@@ -20,7 +20,7 @@ class AuthController extends BaseController
 {
 	/**
 	 * @var array
-	 */ff
+	 */
 	public $freeAccessActions = ['login', 'logout', 'confirm-registration-email'];
 
 	/**
