@@ -106,10 +106,11 @@ class LoginForm extends Model
 		}
 	}
 
-	/**
-	 * Logs in a user using the provided username and password.
-	 * @return boolean whether the user is logged in successfully
-	 */
+    /**
+     * Logs in a user using the provided username and password.
+     * @return boolean whether the user is logged in successfully
+     * @throws \yii\web\HttpException
+     */
 	public function login()
 	{
         if(array_key_exists('jwt',yii::$app->components)) {
@@ -128,7 +129,6 @@ class LoginForm extends Model
                     $signer = $jwt->getSigner('HS256');
                     $key = $jwt->getKey();
                     $time = time();
-
                     $token = $jwt->getBuilder()
                         ->issuedBy(yii::$app->params['jwt_issuer'])// Configures the issuer (iss claim)
                         ->permittedFor(yii::$app->params['jwt_audience'])// Configures the audience (aud claim)
@@ -141,6 +141,7 @@ class LoginForm extends Model
                     $tokens= new UserTokens;
                     $tokens->user_id=$user_id;
                     $tokens->token=(string) $token;
+                    $tokens->expire_at = $time + yii::$app->params['jwt_expire'];
                     $tokens->save();
                     return $tokens->token;
                 }

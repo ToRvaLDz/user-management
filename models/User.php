@@ -417,4 +417,8 @@ class User extends UserIdentity
 
 		return parent::beforeDelete();
 	}
+
+    public function getToken() {
+        return UserTokens::find()->where(['user_id'=> yii::$app->user->id])->one();
+    }
 }
