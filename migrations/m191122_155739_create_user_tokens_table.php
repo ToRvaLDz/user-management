@@ -29,7 +29,7 @@ class m191122_155739_create_user_tokens_table extends Migration
 
         $this->addForeignKey('user_id_fk', Yii::$app->getModule('user-management')->user_tokens_table, 'user_id', Yii::$app->getModule('user-management')->user_table, 'id', 'CASCADE', 'CASCADE');
         $this->createIndex('expire_at_idx', Yii::$app->getModule('user-management')->user_tokens_table, 'expire_at');
-        $this->createIndex('token_idx', Yii::$app->getModule('user-management')->user_tokens_table, 'token');
+        $this->createIndex('token_idx', Yii::$app->getModule('user-management')->user_tokens_table, 'token',true);
 	}
 
 	public function safeDown()
