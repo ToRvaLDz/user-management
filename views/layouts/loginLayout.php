@@ -1,6 +1,6 @@
 <?php
     use webvimark\modules\UserManagement\UserManagementModule;
-    use yii\bootstrap\BootstrapAsset;
+    use yii\bootstrap4\BootstrapAsset;
     use yii\helpers\Html;
     use yii\web\View;
 
