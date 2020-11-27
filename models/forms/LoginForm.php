@@ -106,6 +106,30 @@ class LoginForm extends Model
 		}
 	}
 
+	public function generateToken($user)
+    {
+        $user_id = $user->id;
+        /** @var Jwt $jwt */
+        $jwt = Yii::$app->jwt;
+        $signer = $jwt->getSigner('HS256');
+        $key = $jwt->getKey();
+        $time = time();
+        $token = $jwt->getBuilder()
+            ->issuedBy(yii::$app->params['jwt_issuer'])// Configures the issuer (iss claim)
+            ->permittedFor(yii::$app->params['jwt_audience'])// Configures the audience (aud claim)
+            ->identifiedBy(yii::$app->params['jwt_id'], true)// Configures the id (jti claim), replicating as a header item
+            ->issuedAt($time)// Configures the time that the token was issue (iat claim)
+            ->expiresAt($time + yii::$app->params['jwt_expire'])// Configures the expiration time of the token (exp claim)
+            ->withClaim('uid', $user_id)// Configures a new claim, called "uid"
+            ->getToken($signer, $key); // Retrieves the generated token
+
+        $tokens = new UserTokens;
+        $tokens->user_id = $user_id;
+        $tokens->token = (string)$token;
+        $tokens->expire_at = $time + yii::$app->params['jwt_expire'];
+        $tokens->save();
+        return $tokens->token;
+    }
     /**
      * Logs in a user using the provided username and password.
      * @return boolean whether the user is logged in successfully
@@ -123,27 +147,7 @@ class LoginForm extends Model
 		    $user = $this->getUser();
 			if(Yii::$app->user->login($user, $this->rememberMe ? Yii::$app->user->cookieLifetime : 0)) {
                 if ($this->rememberMe && array_key_exists('jwt', yii::$app->components)) {
-                    $user_id = $user->id;
-                    /** @var Jwt $jwt */
-                    $jwt = Yii::$app->jwt;
-                    $signer = $jwt->getSigner('HS256');
-                    $key = $jwt->getKey();
-                    $time = time();
-                    $token = $jwt->getBuilder()
-                        ->issuedBy(yii::$app->params['jwt_issuer'])// Configures the issuer (iss claim)
-                        ->permittedFor(yii::$app->params['jwt_audience'])// Configures the audience (aud claim)
-                        ->identifiedBy(yii::$app->params['jwt_id'], true)// Configures the id (jti claim), replicating as a header item
-                        ->issuedAt($time)// Configures the time that the token was issue (iat claim)
-                        ->expiresAt($time + yii::$app->params['jwt_expire'])// Configures the expiration time of the token (exp claim)
-                        ->withClaim('uid', $user_id)// Configures a new claim, called "uid"
-                        ->getToken($signer, $key); // Retrieves the generated token
-
-                    $tokens = new UserTokens;
-                    $tokens->user_id = $user_id;
-                    $tokens->token = (string)$token;
-                    $tokens->expire_at = $time + yii::$app->params['jwt_expire'];
-                    $tokens->save();
-                    return $tokens->token;
+                    $this->generateToken($user);
                 }
                 return true;
             }
