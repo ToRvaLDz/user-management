@@ -147,7 +147,7 @@ class LoginForm extends Model
 		    $user = $this->getUser();
 			if(Yii::$app->user->login($user, $this->rememberMe ? Yii::$app->user->cookieLifetime : 0)) {
                 if ($this->rememberMe && array_key_exists('jwt', yii::$app->components)) {
-                    $this->generateToken($user);
+                    return $this->generateToken($user);
                 }
                 return true;
             }
