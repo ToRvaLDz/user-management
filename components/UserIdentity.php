@@ -40,9 +40,20 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
 	public static function findIdentityByAccessToken($token, $type = null)
 	{
         if(array_key_exists('jwt',yii::$app->components)){
+            /** @var UserTokens $usersTokens */
             $usersTokens= UserTokens::find()->where(['token'=>(string) $token])->one();
+
             if($usersTokens && $usersTokens->user_id === (int) $token->getClaim('uid') && (boolean) $usersTokens->banned === false){
-                return $usersTokens->user;
+                $user = $usersTokens->user;
+                $type = $token->getHeader('type', false);
+                if($user->status === 1) {
+                    if (($type === 'mobile' && $user->is_app === 1) || ($type !== 'mobile')) {
+                        return $usersTokens->user;
+                    }
+                }
+
+                return false;
+
             }
         }else {
             return static::findOne(['auth_key' => $token, 'status' => User::STATUS_ACTIVE]);

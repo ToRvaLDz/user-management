@@ -126,7 +126,7 @@ class LoginForm extends Model
         $tokens = new UserTokens;
         $tokens->user_id = $user_id;
         $tokens->token = (string)$token;
-        $tokens->expire_at = $time + yii::$app->params['jwt_expire'];
+        $tokens->expire_at = $time + (int)yii::$app->params['jwt_expire'];
         $tokens->save();
         return $tokens->token;
     }

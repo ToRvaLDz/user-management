@@ -5,6 +5,7 @@ namespace webvimark\modules\UserManagement\models;
 use sizeg\jwt\Jwt;
 use webvimark\modules\UserManagement\UserManagementModule;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "user_tokens".
@@ -15,7 +16,7 @@ use Yii;
  * @property integer $created_at
  * @property integer $updated_at
  * @property datetime $expire_at
- * @property User $user
+ * @property \app\models\User $user
  * @property int $id [int(11)]
  */
 class UserTokens extends \webvimark\components\BaseActiveRecord
@@ -57,10 +58,10 @@ class UserTokens extends \webvimark\components\BaseActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return \yii\db\ActiveQuery||User
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }
