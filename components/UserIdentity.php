@@ -42,12 +42,11 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
         if(array_key_exists('jwt',yii::$app->components)){
             /** @var UserTokens $usersTokens */
             $usersTokens= UserTokens::find()->where(['token'=>(string) $token])->one();
-
             if($usersTokens && $usersTokens->user_id === (int) $token->getClaim('uid') && (boolean) $usersTokens->banned === false){
                 $user = $usersTokens->user;
-                $type = $token->getHeader('type', false);
+                $type =(string) yii::$app->request->headers['type'];
                 if($user->status === 1) {
-                    if (($type === 'mobile' && $user->is_app === 1) || ($type !== 'mobile')) {
+                    if (($type === User::HEADER_MOBILE && $user->is_app === 1) || ($type !== User::HEADER_MOBILE)) {
                         return $usersTokens->user;
                     }
                 }
@@ -68,7 +67,12 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
 	 */
 	public static function findByUsername($username)
 	{
-		return static::findOne(['username' => $username, 'status' => User::STATUS_ACTIVE]);
+        $type =(string) yii::$app->request->headers['type'];
+        if($type === User::HEADER_MOBILE) {
+            return static::findOne(['username' => $username, 'status' => User::STATUS_ACTIVE, 'is_app' => 1 ]);
+        }
+
+        return static::findOne(['username' => $username, 'status' => User::STATUS_ACTIVE]);
 	}
 
 	/**
