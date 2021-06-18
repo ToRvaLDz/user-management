@@ -36,8 +36,8 @@ class AuthController extends BaseController
 	/**
 	 * Login form
 	 *
-	 * @return array|string
-	 */
+	 * @return array|Response
+     */
 	public function actionLogin()
 	{
 		if ( !Yii::$app->user->isGuest )
@@ -55,6 +55,11 @@ class AuthController extends BaseController
                 return ActiveForm::validate($model);
             }
         }
+		if($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        }
+
+
 		return $this->renderIsAjax('login', compact('model'));
 	}
 
@@ -354,7 +359,7 @@ class AuthController extends BaseController
 		{
 			throw new NotFoundHttpException(UserManagementModule::t('front', 'Token not found. It may be expired'));
 		}
-		
+
 		$user->email_confirmed = 1;
 		$user->removeConfirmationToken();
 		$user->save(false);
