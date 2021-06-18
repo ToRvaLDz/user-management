@@ -13,6 +13,7 @@
 		"webvimark/date-range-picker": "^1.0.0",
 		"webvimark/helpers": "^1.0.0",
 		"webvimark/grid-bulk-actions": "^1.0.0",
-		"webvimark/grid-page-size": "^1.0.0"
+		"webvimark/grid-page-size": "^1.0.0",
+		"sizeg/yii2-jwt": "^2.0"
 	}
 }
