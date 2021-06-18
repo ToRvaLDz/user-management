@@ -3,30 +3,87 @@
  * @var $this yii\web\View
  * @var $model webvimark\modules\UserManagement\models\forms\LoginForm
  */
-use webvimark\modules\UserManagement\assets\LoginAsset;
 
-$loginAsset=LoginAsset::register($this);
+use webvimark\modules\UserManagement\components\GhostHtml;
+use webvimark\modules\UserManagement\UserManagementModule;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 ?>
-<!-- BEGIN LOGIN FORM -->
-<div class="kt-grid kt-grid--ver kt-grid--root kt-page">
-    <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v3 kt-login--signin" id="kt_login">
-        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url('<?= $loginAsset->baseUrl . '/media/bg.jpg' ?>');">
-            <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
-                <div class="kt-login__container">
-                    <div class="kt-login__logo">
-                        <a href="#">
-                            <img src="<?= yii::getAlias(yii::$app->params['login-logo']) ?>">
-                        </a>
-                    </div>
-                     <?= $this->render('login-login-form', ['model' => $model]) ?>
-                </div>
-            </div>
-        </div>
-    </div>
+
+<div class="container" id="login-wrapper">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><?= UserManagementModule::t('front', 'Authorization') ?></h3>
+				</div>
+				<div class="panel-body">
+
+					<?php $form = ActiveForm::begin([
+						'id'      => 'login-form',
+						'options'=>['autocomplete'=>'off'],
+						'validateOnBlur'=>false,
+						'fieldConfig' => [
+							'template'=>"{input}\n{error}",
+						],
+					]) ?>
+
+					<?= $form->field($model, 'username')
+						->textInput(['placeholder'=>$model->getAttributeLabel('username'), 'autocomplete'=>'off']) ?>
+
+					<?= $form->field($model, 'password')
+						->passwordInput(['placeholder'=>$model->getAttributeLabel('password'), 'autocomplete'=>'off']) ?>
+
+					<?= (isset(Yii::$app->user->enableAutoLogin) && Yii::$app->user->enableAutoLogin) ? $form->field($model, 'rememberMe')->checkbox(['value'=>true]) : '' ?>
+
+					<?= Html::submitButton(
+						UserManagementModule::t('front', 'Login'),
+						['class' => 'btn btn-lg btn-primary btn-block']
+					) ?>
+
+					<div class="row registration-block">
+						<div class="col-sm-6">
+							<?= GhostHtml::a(
+								UserManagementModule::t('front', "Registration"),
+								['/user-management/auth/registration']
+							) ?>
+						</div>
+						<div class="col-sm-6 text-right">
+							<?= GhostHtml::a(
+								UserManagementModule::t('front', "Forgot password ?"),
+								['/user-management/auth/password-recovery']
+							) ?>
+						</div>
+					</div>
+
+
+
+
+					<?php ActiveForm::end() ?>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<!-- END LOGIN FORM -->
-<!-- begin::Global Config(global config for global JS sciprts) -->
-<script>
-    var KTAppOptions = {"colors":{"state":{"brand":"#3d94fb","light":"#ffffff","dark":"#282a3c","primary":"#5867dd","success":"#34bfa3","info":"#3d94fb","warning":"#ffb822","danger":"#fd27eb"},"base":{"label":["#c5cbe3","#a1a8c3","#3d4465","#3e4466"],"shape":["#f0f3ff","#d9dffa","#afb4d4","#646c9a"]}}};
-</script>
-<!-- end::Global Config -->
+
+<?php
+$css = <<<CSS
+html, body {
+	background: #eee;
+	-webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+	box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+	height: 100%;
+	min-height: 100%;
+	position: relative;
+}
+#login-wrapper {
+	position: relative;
+	top: 30%;
+}
+#login-wrapper .registration-block {
+	margin-top: 15px;
+}
+CSS;
+
+$this->registerCss($css);
+?>

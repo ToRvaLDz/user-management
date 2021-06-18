@@ -3,7 +3,6 @@
 namespace webvimark\modules\UserManagement\components;
 
 use yii\web\User;
-use webvimark\modules\UserManagement\models\UserTokens;
 use Yii;
 
 /**
@@ -59,4 +58,5 @@ class UserConfig extends User
 
 		parent::afterLogin($identity, $cookieBased, $duration);
 	}
+
 }

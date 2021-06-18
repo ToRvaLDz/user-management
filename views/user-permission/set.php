@@ -5,102 +5,74 @@
  * @var webvimark\modules\UserManagement\models\User $user
  */
 
+use webvimark\modules\UserManagement\components\GhostHtml;
 use webvimark\modules\UserManagement\models\rbacDB\Role;
 use webvimark\modules\UserManagement\UserManagementModule;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\helpers\ArrayHelper;
-use webvimark\modules\UserManagement\models\rbacDB\Permission;
 use yii\helpers\Html;
 
 BootstrapPluginAsset::register($this);
+$this->title = UserManagementModule::t('back', 'Roles and permissions for user:') . ' ' . $user->username;
 
-
-	$title= UserManagementModule::t('back', 'Ruoli e permessi per l\'utente:') . ' ' . $user->username;
-	$icon="flaticon-users";
-	$subtitle='';
-
-	$this->title = $title;
-	$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Ruoli'), 'url' => ['role/index']];
-	$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user-management/user/index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<h2 class="lte-hide-title"><?= $this->title ?></h2>
+
 <?php if ( Yii::$app->session->hasFlash('success') ): ?>
-    <div class="alert alert-success text-center">
+	<div class="alert alert-success text-center">
 		<?= Yii::$app->session->getFlash('success') ?>
-    </div>
+	</div>
 <?php endif; ?>
-    <div class="role-index">
-    <div class="kt-portlet kt-portlet--mobile">
-    <div class="kt-portlet__head">
-        <div class="kt-portlet__head-caption">
-            <div class="kt-portlet__head-title">
-                <h3 class="kt-portlet__head-text">
-                    <i class="<?= $icon ?>"></i> <?= Html::encode($title) ?>
-                    <small>
-						<?= Html::encode($subtitle) ?>
-                    </small>
-                </h3>
-            </div>
-        </div>
-    </div>
-    <div class="kt-portlet__body">
-        <div class="row">
+
+<div class="row">
 	<div class="col-sm-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<strong>
-					<span class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Ruoli') ?>
+					<span class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Roles') ?>
 				</strong>
 			</div>
 			<div class="panel-body">
 
 				<?= Html::beginForm(['set-roles', 'id'=>$user->id]) ?>
 
-				<?= Html::checkboxList(
-					'roles',
-					ArrayHelper::map(Role::getUserRoles($user->id), 'name', 'name'),
-					ArrayHelper::map(Role::getAvailableRoles(), 'name', 'description'),
-					[
-						'item'=>function ($index, $label, $name, $checked, $value) {
-								$list = '<ul style="padding-left: 10px">';
-								foreach (Role::getPermissionsByRole($value) as $permissionName => $permissionDescription)
-								{
-									$list .= $permissionDescription ? "<li>{$permissionDescription}</li>" : "<li>{$permissionName}</li>";
-								}
-								$list .= '</ul>';
+				<?php foreach (Role::getAvailableRoles() as $aRole): ?>
+					<label>
+						<?php $isChecked = in_array($aRole['name'], ArrayHelper::map(Role::getUserRoles($user->id), 'name', 'name')) ? 'checked' : '' ?>
 
-								$helpIcon = Html::beginTag('span', [
-									'title'        => UserManagementModule::t('back', 'Permessi per il ruolo - "{role}"',[
-											'role'=>$label,
-										]),
-									'data-content' => $list,
-									'data-html'    => 'true',
-									'role'         => 'button',
-									'style'        => 'margin-bottom: 5px; padding: 0 5px',
-									'class'        => 'btn btn-sm btn-default role-help-btn',
-								]);
-								$helpIcon .= '?';
-								$helpIcon .= Html::endTag('span');
+						<?php if ( Yii::$app->getModule('user-management')->userCanHaveMultipleRoles ): ?>
+							<input type="checkbox" <?= $isChecked ?> name="roles[]" value="<?= $aRole['name'] ?>">
 
-								$isChecked = $checked ? 'checked' : '';
-								$checkbox = "<label><input type='checkbox' name='{$name}' value='{$value}' {$isChecked}> {$label}</label>";
+						<?php else: ?>
+							<input type="radio" <?= $isChecked ?> name="roles" value="<?= $aRole['name'] ?>">
 
-								return $helpIcon . ' ' . $checkbox;
-							},
-						'separator'=>'<br>',
-					]
-				) ?>
+						<?php endif; ?>
+
+						<?= $aRole['description'] ?>
+					</label>
+
+					<?= GhostHtml::a(
+						'<span class="glyphicon glyphicon-edit"></span>',
+						['/user-management/role/view', 'id'=>$aRole['name']],
+						['target'=>'_blank']
+					) ?>
+					<br/>
+				<?php endforeach ?>
+
 				<br/>
 
 				<?php if ( Yii::$app->user->isSuperadmin OR Yii::$app->user->id != $user->id ): ?>
 
 					<?= Html::submitButton(
-						'<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Salva'),
+						'<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
 						['class'=>'btn btn-primary btn-sm']
 					) ?>
 				<?php else: ?>
 					<div class="alert alert-warning well-sm text-center">
-						<?= UserManagementModule::t('back', 'Non puoi modificare i tuoi permessi') ?>
+						<?= UserManagementModule::t('back', 'You can not change own permissions') ?>
 					</div>
 				<?php endif; ?>
 
@@ -114,7 +86,7 @@ BootstrapPluginAsset::register($this);
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<strong>
-					<span class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Permessi') ?>
+					<span class="glyphicon glyphicon-th"></span> <?= UserManagementModule::t('back', 'Permissions') ?>
 				</strong>
 			</div>
 			<div class="panel-body">
@@ -128,7 +100,15 @@ BootstrapPluginAsset::register($this);
 
 								<ul>
 									<?php foreach ($permissions as $permission): ?>
-										<li><?= $permission->description ?></li>
+										<li>
+											<?= $permission->description ?>
+
+											<?= GhostHtml::a(
+												'<span class="glyphicon glyphicon-edit"></span>',
+												['/user-management/permission/view', 'id'=>$permission->name],
+												['target'=>'_blank']
+											) ?>
+										</li>
 									<?php endforeach ?>
 								</ul>
 							</fieldset>
@@ -144,9 +124,7 @@ BootstrapPluginAsset::register($this);
 		</div>
 	</div>
 </div>
-    </div>
-    </div>
-    </div>
+
 <?php
 $this->registerJs(<<<JS
 

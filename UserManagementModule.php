@@ -209,14 +209,12 @@ class UserManagementModule extends \yii\base\Module
 	 */
 	public static function menuItems()
 	{
-        $linkTemplate='<a href="{url}" class="kt-menu__link"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">{label}</span></a>';
-
-        return [
-			['label' => UserManagementModule::t('back', 'Users'), 'url' => ['/user-management/user/index'],'linkTemplate'=>$linkTemplate],
-			['label' => UserManagementModule::t('back', 'Roles'), 'url' => ['/user-management/role/index'],'linkTemplate'=>$linkTemplate],
-			['label' => UserManagementModule::t('back', 'Permissions'), 'url' => ['/user-management/permission/index'],'linkTemplate'=>$linkTemplate],
-			['label' => UserManagementModule::t('back', 'Permission groups'), 'url' => ['/user-management/auth-item-group/index'],'linkTemplate'=>$linkTemplate],
-			['label' => UserManagementModule::t('back', 'Visit log'), 'url' => ['/user-management/user-visit-log/index'],'linkTemplate'=>$linkTemplate],
+		return [
+			['label' => '<i class="fa fa-angle-double-right"></i> ' . UserManagementModule::t('back', 'Users'), 'url' => ['/user-management/user/index']],
+			['label' => '<i class="fa fa-angle-double-right"></i> ' . UserManagementModule::t('back', 'Roles'), 'url' => ['/user-management/role/index']],
+			['label' => '<i class="fa fa-angle-double-right"></i> ' . UserManagementModule::t('back', 'Permissions'), 'url' => ['/user-management/permission/index']],
+			['label' => '<i class="fa fa-angle-double-right"></i> ' . UserManagementModule::t('back', 'Permission groups'), 'url' => ['/user-management/auth-item-group/index']],
+			['label' => '<i class="fa fa-angle-double-right"></i> ' . UserManagementModule::t('back', 'Visit log'), 'url' => ['/user-management/user-visit-log/index']],
 		];
 	}
 

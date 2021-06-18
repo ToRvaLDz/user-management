@@ -1,9 +1,7 @@
 <?php
 namespace webvimark\modules\UserManagement\components;
 
-use Lcobucci\JWT\Token;
 use webvimark\modules\UserManagement\models\User;
-use webvimark\modules\UserManagement\models\UserTokens;
 use yii\base\Security;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -32,31 +30,12 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
 		return static::findOne($id);
 	}
 
-    /**
-     * @param Token $token
-     * @inheritdoc
-     * @throws \Exception
-     */
+	/**
+	 * @inheritdoc
+	 */
 	public static function findIdentityByAccessToken($token, $type = null)
 	{
-        if(array_key_exists('jwt',yii::$app->components)){
-            /** @var UserTokens $usersTokens */
-            $usersTokens= UserTokens::find()->where(['token'=>(string) $token])->one();
-            if($usersTokens && $usersTokens->user_id === (int) $token->getClaim('uid') && (boolean) $usersTokens->banned === false){
-                $user = $usersTokens->user;
-                $type =(string) yii::$app->request->headers['type'];
-                if($user->status === 1) {
-                    if (($type === User::HEADER_MOBILE && $user->is_app === 1) || ($type !== User::HEADER_MOBILE)) {
-                        return $usersTokens->user;
-                    }
-                }
-
-                return false;
-
-            }
-        }else {
-            return static::findOne(['auth_key' => $token, 'status' => User::STATUS_ACTIVE]);
-        }
+		return static::findOne(['auth_key' => $token, 'status' => User::STATUS_ACTIVE]);
 	}
 
 	/**
@@ -67,12 +46,7 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
 	 */
 	public static function findByUsername($username)
 	{
-        $type =(string) yii::$app->request->headers['type'];
-        if($type === User::HEADER_MOBILE) {
-            return static::findOne(['username' => $username, 'status' => User::STATUS_ACTIVE, 'is_app' => 1 ]);
-        }
-
-        return static::findOne(['username' => $username, 'status' => User::STATUS_ACTIVE]);
+		return static::findOne(['username' => $username, 'status' => User::STATUS_ACTIVE]);
 	}
 
 	/**
@@ -183,12 +157,15 @@ abstract class UserIdentity extends ActiveRecord implements IdentityInterface
 	 */
 	public function generateAuthKey()
 	{
-        if (php_sapi_name() == 'cli') {
-            $security = new Security();
-            $this->auth_key = $security->generateRandomString();
-        } else {
-            $this->auth_key = Yii::$app->security->generateRandomString();
-        }
+		if ( php_sapi_name() == 'cli' )
+		{
+			$security = new Security();
+			$this->auth_key = $security->generateRandomString();
+		}
+		else
+		{
+			$this->auth_key = Yii::$app->security->generateRandomString();
+		}
 	}
 
 	/**
