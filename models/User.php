@@ -31,10 +31,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class User extends UserIdentity
 {
-	const STATUS_ACTIVE = 1;
-	const STATUS_INACTIVE = 0;
-	const STATUS_BANNED = -1;
-	const HEADER_MOBILE = 'mobile';
+	public const STATUS_ACTIVE = 1;
+	public const STATUS_INACTIVE = 0;
+	public const STATUS_BANNED = -1;
+	public const HEADER_MOBILE = 'mobile';
 
 	/**
 	 * @var string
